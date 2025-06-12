@@ -22,6 +22,15 @@ https://github.com/XavierJiezou/pytorch-dcgan-mnist
 
 ROOT=r'F:\NeuralNetworkModel\DCGAN_MNIST\RUN_1'
 
+'''
+RUN_1是一个文件夹，下面包含D文件夹、G文件夹、fake_imgs文件夹
+
+RUN_1
+|————/D
+|————/G
+|————/fake_imgs
+'''
+
 
 # 超参数设置
 class Params:
