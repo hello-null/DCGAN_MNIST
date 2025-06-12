@@ -21,7 +21,6 @@ https://github.com/XavierJiezou/pytorch-dcgan-mnist
 
 
 ROOT=r'F:\NeuralNetworkModel\DCGAN_MNIST\RUN_1'
-
 '''
 RUN_1是一个文件夹，下面包含D文件夹、G文件夹、fake_imgs文件夹
 
@@ -30,6 +29,7 @@ RUN_1
 |————/G
 |————/fake_imgs
 '''
+
 
 
 # 超参数设置
@@ -80,7 +80,7 @@ test_data = datasets.MNIST(
     transform=transforms.Compose([
         transforms.Resize(Params.image_size),
         transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))
+        transforms.Normalize((0.5,), (0.5,)) 
     ]),
     download=False
 )
@@ -226,7 +226,8 @@ if __name__ == '__main__':
             loss4 = criterion(output, label)
             loss4.backward()
             optimizerG.step()
-
+            
+        #  打印训练信息
         tm_end = time.time()
         str_train = 'epoch={} lr={:.8f} D_loss={:.3f} G_loss={:.3f} cost_time_m={:.3f}\n'.format(
             epoch,
@@ -237,20 +238,13 @@ if __name__ == '__main__':
         )
         print(str_train, end='')
 
+        # 保存权重文件
         with open(ROOT+"\\INFO.txt", "a", encoding="utf-8") as f:
             f.write(str_train)  # 格式化字符串
         torch.save(netD.state_dict(), ROOT+'\\D\\dict_epoch_{}.pth'.format(epoch))
         torch.save(netG.state_dict(), ROOT+'\\G\\dict_epoch_{}.pth'.format(epoch))
 
-        # with torch.no_grad():
-        #     noise = torch.randn((64, Params.nz, 1, 1), device=device)
-        #     fake = netG(noise).detach().cpu()
-        # a1 = make_grid(fake * 0.5 + 0.5, nrow=8)
-        # fig = plt.figure(figsize=(20,20))
-        # plt.imshow(a1.permute(1, 2, 0))
-        # plt.axis("off")
-        # plt.show()
-
+        # 显示生成的图像
         with torch.no_grad():
             noise = torch.randn((64, Params.nz, 1, 1), device=device)  # torch.Size([32, 100, 1, 1])
             fake = netG(noise).detach().cpu()
