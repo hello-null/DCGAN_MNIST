@@ -16,18 +16,29 @@ from torchsummary import summary
 《UNSUPERVISED REPRESENTATION LEARNING
 WITH DEEP CONVOLUTIONAL
 GENERATIVE ADVERSARIAL NETWORKS》
-https://github.com/XavierJiezou/pytorch-dcgan-mnist
 '''
 
 
 ROOT=r'F:\NeuralNetworkModel\DCGAN_MNIST\RUN_1'
 '''
-RUN_1是一个文件夹，下面包含D文件夹、G文件夹、fake_imgs文件夹
-
-RUN_1
-|————/D
-|————/G
-|————/fake_imgs
+你必须先手动创建D、G、fake_imgs文件夹，因为代码需要往文件夹保存图像或权重
+INFO.txt是训练过程中的参数信息，代码自动创建，无需手动创建
+以下是结构视图
+RUN_2/
+|   INFO.txt
+├── D/
+│   ├── xxx.pth
+│   ├── xxx.pth
+│   └── ...
+├── G/
+│   ├── xxx.pth
+│   ├── xxx.pth
+│   └── ...
+├── fake_imgs/
+│   ├── xxx.jpg
+│   ├── xxx.jpg
+│   └── ...
+└── ...
 '''
 
 
@@ -238,7 +249,7 @@ if __name__ == '__main__':
         )
         print(str_train, end='')
 
-        # 保存权重文件
+        # 保存权重文件和日志信息
         with open(ROOT+"\\INFO.txt", "a", encoding="utf-8") as f:
             f.write(str_train)  # 格式化字符串
         torch.save(netD.state_dict(), ROOT+'\\D\\dict_epoch_{}.pth'.format(epoch))
